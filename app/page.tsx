@@ -11,7 +11,7 @@ export default function Home() {
 
   const fetchMovie = async () => {
     if (!imdbID) {
-      setError("Please enter IMDb ID");
+      setError("Please enter a valid IMDb ID (e.g., tt0133093)");
       return;
     }
 
@@ -44,68 +44,90 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-black text-white p-6">
-      <div className="max-w-4xl mx-auto">
+    <main className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white p-6">
+      <div className="max-w-5xl mx-auto">
 
-        <h1 className="text-4xl font-bold mb-6 text-center">
+        {/* Header */}
+        <h1 className="text-4xl md:text-5xl font-bold text-center mb-8 tracking-wide">
           🎬 AI Movie Insight Builder
         </h1>
 
-        <div className="flex gap-3 mb-6">
+        {/* Search Bar */}
+        <div className="flex flex-col md:flex-row gap-4 mb-10">
           <input
             type="text"
             placeholder="Enter IMDb ID (tt0133093)"
             value={imdbID}
             onChange={(e) => setImdbID(e.target.value)}
-            className="flex-1 p-3 rounded-xl bg-neutral-800 border border-neutral-700"
+            className="flex-1 p-4 rounded-2xl bg-white/10 backdrop-blur-lg border border-white/20 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
           />
           <button
             onClick={fetchMovie}
-            className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-xl"
+            className="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 rounded-2xl font-semibold transition transform hover:scale-105"
           >
             Search
           </button>
         </div>
 
-        {loading && <p>Loading...</p>}
-        {error && <p className="text-red-500">{error}</p>}
+        {loading && (
+          <p className="text-center text-indigo-400 animate-pulse">
+            Loading movie details...
+          </p>
+        )}
+
+        {error && (
+          <p className="text-center text-red-400 font-medium">
+            {error}
+          </p>
+        )}
 
         {movie && (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-neutral-800 p-6 rounded-2xl shadow-lg">
+            {/* Movie Card */}
+            <div className="grid md:grid-cols-2 gap-8 bg-white/10 backdrop-blur-xl p-8 rounded-3xl shadow-2xl border border-white/20 transition hover:shadow-indigo-500/20">
+              
               <img
                 src={movie.Poster}
                 alt={movie.Title}
-                className="rounded-xl"
+                className="rounded-2xl shadow-lg"
               />
 
               <div>
-                <h2 className="text-3xl font-semibold mb-2">
+                <h2 className="text-3xl font-bold mb-3">
                   {movie.Title}
                 </h2>
 
-                <p><strong>Year:</strong> {movie.Year}</p>
-                <p><strong>Rating:</strong> {movie.imdbRating}</p>
-                <p><strong>Cast:</strong> {movie.Actors}</p>
+                <p className="mb-2 text-gray-300">
+                  <strong>Year:</strong> {movie.Year}
+                </p>
 
-                <p className="mt-4 text-neutral-300">
+                <p className="mb-2 text-gray-300">
+                  <strong>IMDb Rating:</strong> ⭐ {movie.imdbRating}
+                </p>
+
+                <p className="mb-4 text-gray-300">
+                  <strong>Cast:</strong> {movie.Actors}
+                </p>
+
+                <p className="text-gray-400 leading-relaxed">
                   {movie.Plot}
                 </p>
               </div>
             </div>
 
+            {/* Sentiment Section */}
             {sentiment && (
-              <div className="bg-neutral-800 p-6 rounded-2xl mt-6 shadow-lg">
-                <h3 className="text-2xl font-semibold mb-3">
+              <div className="mt-10 bg-white/10 backdrop-blur-xl p-8 rounded-3xl shadow-xl border border-white/20">
+                <h3 className="text-2xl font-bold mb-4">
                   🤖 AI Audience Insight
                 </h3>
 
-                <p className="mb-4 text-neutral-300">
+                <p className="mb-6 text-gray-300 leading-relaxed">
                   {sentiment.summary}
                 </p>
 
                 <span
-                  className={`px-4 py-2 rounded-full text-white ${badgeColor(
+                  className={`px-6 py-2 rounded-full text-white font-semibold ${badgeColor(
                     sentiment.classification
                   )}`}
                 >
