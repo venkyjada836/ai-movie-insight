@@ -5,7 +5,8 @@ An AI-powered movie analysis tool that fetches IMDb movie details and generates 
 ---
 
 ## 🚀 Live Demo
-👉 https://your-vercel-link.vercel.app
+
+👉 https://ai-movie-insight-six.vercel.app/
 
 ---
 
@@ -35,7 +36,7 @@ An AI-powered movie analysis tool that fetches IMDb movie details and generates 
 
 1. User enters an IMDb movie ID.
 2. OMDb API fetches movie metadata.
-3. Audience review data is processed.
+3. The backend processes movie data.
 4. OpenAI generates sentiment summary.
 5. App classifies overall audience sentiment.
 
@@ -46,5 +47,5 @@ An AI-powered movie analysis tool that fetches IMDb movie details and generates 
 Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/ai-movie-insight.git
+git clone https://github.com/venkyjada836/ai-movie-insight.git
 cd ai-movie-insight
