@@ -36,9 +36,9 @@ An AI-powered movie analysis tool that fetches IMDb movie details and generates 
 
 1. User enters an IMDb movie ID.
 2. OMDb API fetches movie metadata.
-3. The backend processes movie data.
-4. OpenAI generates sentiment summary.
-5. App classifies overall audience sentiment.
+3. Backend processes movie details.
+4. OpenAI generates an AI-based sentiment summary.
+5. Application classifies overall audience sentiment.
 
 ---
 
@@ -49,3 +49,49 @@ Clone the repository:
 ```bash
 git clone https://github.com/venkyjada836/ai-movie-insight.git
 cd ai-movie-insight
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run locally:
+
+```bash
+npm run dev
+```
+
+---
+
+## 🔑 Environment Variables
+
+Create a `.env.local` file in the root folder and add:
+
+```env
+OMDB_API_KEY=your_omdb_key
+OPENAI_API_KEY=your_openai_key
+```
+
+---
+
+## 📈 What I Learned
+
+- Debugging production build issues
+- Tailwind + PostCSS configuration
+- Integrating external APIs (OMDb & OpenAI)
+- Managing environment variables securely
+- Deploying full-stack applications on Vercel
+
+---
+
+## 👨‍💻 Author
+
+Venky Jada  
+GitHub: https://github.com/venkyjada836  
+Live Project: https://ai-movie-insight-six.vercel.app/
+
+---
+
+⭐ If you found this project interesting, feel free to star the repository!
