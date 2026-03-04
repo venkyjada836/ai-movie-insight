@@ -9,7 +9,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const fetchMovie = async () => {
+  const handleSearch = async () => {
     if (!imdbID) {
       setError("Please enter a valid IMDb ID (e.g., tt0133093)");
       return;
@@ -22,13 +22,13 @@ export default function Home() {
 
     try {
       const res = await fetch(`/api/movie?id=${imdbID}`);
-      const result = await res.json();
+      const data = await res.json();
 
       if (!res.ok) {
-        setError(result.error);
+        setError(data.error);
       } else {
-        setMovie(result.movie);
-        setSentiment(result.sentiment);
+        setMovie(data.movie);
+        setSentiment(data.sentiment);
       }
     } catch {
       setError("Something went wrong");
@@ -38,32 +38,32 @@ export default function Home() {
   };
 
   const badgeColor = (type: string) => {
-    if (type === "Positive") return "bg-green-500";
+    if (type === "Positive") return "bg-green-600";
     if (type === "Mixed") return "bg-yellow-500";
-    return "bg-red-500";
+    return "bg-red-600";
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white p-6">
+    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-black to-slate-800 text-white px-6 py-10">
       <div className="max-w-5xl mx-auto">
 
-        {/* Header */}
-        <h1 className="text-4xl md:text-5xl font-bold text-center mb-8 tracking-wide">
+        {/* Title */}
+        <h1 className="text-4xl md:text-5xl font-bold text-center mb-10">
           🎬 AI Movie Insight Builder
         </h1>
 
-        {/* Search Bar */}
+        {/* Search */}
         <div className="flex flex-col md:flex-row gap-4 mb-10">
           <input
             type="text"
             placeholder="Enter IMDb ID (tt0133093)"
             value={imdbID}
             onChange={(e) => setImdbID(e.target.value)}
-            className="flex-1 p-4 rounded-2xl bg-white/10 backdrop-blur-lg border border-white/20 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+            className="flex-1 p-4 rounded-xl bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
           <button
-            onClick={fetchMovie}
-            className="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 rounded-2xl font-semibold transition transform hover:scale-105"
+            onClick={handleSearch}
+            className="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 rounded-xl font-semibold transition"
           >
             Search
           </button>
@@ -83,17 +83,15 @@ export default function Home() {
 
         {movie && (
           <>
-            {/* Movie Card */}
-            <div className="grid md:grid-cols-2 gap-8 bg-white/10 backdrop-blur-xl p-8 rounded-3xl shadow-2xl border border-white/20 transition hover:shadow-indigo-500/20">
-              
+            <div className="grid md:grid-cols-2 gap-8 bg-white/10 backdrop-blur-md p-8 rounded-2xl shadow-xl border border-white/20">
               <img
                 src={movie.Poster}
                 alt={movie.Title}
-                className="rounded-2xl shadow-lg"
+                className="rounded-xl shadow-lg"
               />
 
               <div>
-                <h2 className="text-3xl font-bold mb-3">
+                <h2 className="text-3xl font-bold mb-4">
                   {movie.Title}
                 </h2>
 
@@ -115,14 +113,13 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Sentiment Section */}
             {sentiment && (
-              <div className="mt-10 bg-white/10 backdrop-blur-xl p-8 rounded-3xl shadow-xl border border-white/20">
+              <div className="mt-10 bg-white/10 backdrop-blur-md p-8 rounded-2xl shadow-xl border border-white/20">
                 <h3 className="text-2xl font-bold mb-4">
-                  🤖 AI Audience Insight
+                  🤖 Audience Sentiment
                 </h3>
 
-                <p className="mb-6 text-gray-300 leading-relaxed">
+                <p className="mb-6 text-gray-300">
                   {sentiment.summary}
                 </p>
 
